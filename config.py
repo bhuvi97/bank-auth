@@ -1,10 +1,10 @@
 import os
 
-DB_USERNAME = "admin"
-DB_PASSWORD = "w=dibltr6DlBA_u$ihIz"
-DB_HOST = "database-1.cdg6e6o80ngc.us-east-2.rds.amazonaws.com"
+DB_USERNAME = os.getenv("DB_USERNAME", "admin")
+DB_PASSWORD = os.getenv("DB_PASSWORD", "<PASSWORD>")
+DB_HOST = os.getenv("DB_HOST", "localhost")
 DB_PORT = "3306"
-DB_NAME = "database-1"
+DB_NAME = os.getenv("DB_NAME", "users")
 
 # Asynchronous database URL
 SQLALCHEMY_DATABASE_URL = f"mysql+asyncmy://{DB_USERNAME}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
