@@ -1,8 +1,10 @@
-from sqlalchemy import Column, Integer, String, Date, Sequence
+from sqlalchemy import Column, Integer, String, Date, Sequence, ForeignKey, TIMESTAMP, func
 from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import relationship
 
 # Create a base class for our models
 Base = declarative_base()
+
 
 class User(Base):
     __tablename__ = 'users'
@@ -15,4 +17,19 @@ class User(Base):
     phone_number = Column(String(15), nullable=False)
 
     def __repr__(self):
-        return f"<User(id={self.id}, first_name='{self.first_name}', last_name='{self.last_name}', email='{self.email}')>"
+        return (f"<User(id={self.id}, first_name='{self.first_name}', "
+                f"last_name='{self.last_name}', email='{self.email}')>")
+
+
+class UserCredentials(Base):
+    __tablename__ = 'user_credentials'
+
+    id = Column(Integer, primary_key=True, index=True)
+    user_id = Column(Integer, ForeignKey('users.id', ondelete='CASCADE'))
+    username = Column(String(255), unique=True, nullable=False)
+    password_hash = Column(String(255), nullable=False)
+    created_at = Column(TIMESTAMP, server_default=func.now(), nullable=False)
+    updated_at = Column(TIMESTAMP, server_default=func.now(), onupdate=func.now(), nullable=False)
+
+    # Optional relationship to user
+    user = relationship("User", back_populates="credentials")

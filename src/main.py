@@ -2,14 +2,14 @@ import uvicorn
 from fastapi import FastAPI
 import os
 
+from src.login.router import login_router
+from src.signup.router import signup_router
+
 app_config = {
     "title": "BankAuth",
     "version": "1.0.0",
     "docs_url": "/bank-auth",
 }
-
-from src.login.router import login_router
-from src.signup.router import signup_router
 
 app = FastAPI(**app_config)
 app.include_router(login_router)
