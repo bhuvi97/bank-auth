@@ -5,12 +5,16 @@ from sqlalchemy import pool
 from alembic import context
 
 # Optional: If you are using a .env file to manage environment variables
+from dotenv import load_dotenv
+
+# Load environment variables from .env file if available
+load_dotenv()
 
 # this is the Alembic Config object, which provides access to values within the .ini file
 config = context.config
 
 # Get the DATABASE_URL from the environment variable
-DATABASE_URL = os.getenv("DATABASE_URL")
+DATABASE_URL = os.getenv("DB_URL", "No value found")
 
 # Override the sqlalchemy.url in alembic.ini with the one from the environment
 config.set_main_option("sqlalchemy.url", DATABASE_URL)
@@ -20,10 +24,10 @@ fileConfig(config.config_file_name)
 
 # Import your models' metadata here
 # This assumes your models are defined and use the Base class
-from src.models import Base  # Replace with your actual models path
+import src.models as db_models# Replace with your actual models path
 
 # Set the target metadata for autogeneration of migrations
-target_metadata = Base.metadata
+target_metadata = db_models.Base.metadata
 
 def run_migrations_offline():
     """Run migrations in 'offline' mode."""
