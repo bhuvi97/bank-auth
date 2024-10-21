@@ -16,4 +16,4 @@ if not DATABASE_URL:
 alembic_cfg.set_main_option("sqlalchemy.url", DATABASE_URL)
 
 # Run the Alembic command (e.g., revision, upgrade, downgrade)
-command.revision(alembic_cfg, autogenerate=True, message="")
+command.revision(alembic_cfg, autogenerate=True, message="Created table for credentials")

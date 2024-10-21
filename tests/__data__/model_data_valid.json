@@ -1,0 +1,9 @@
+{
+  "username": "johndoe",
+  "email": "johndoe@example.com",
+  "password": "StrongPass123",
+  "first_name": "John",
+  "last_name": "Doe",
+  "dob": "1990-05-20",
+  "phone_number": "+12345678901"
+}
